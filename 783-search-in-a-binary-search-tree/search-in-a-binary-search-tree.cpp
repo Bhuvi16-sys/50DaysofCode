@@ -1,24 +1,17 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
     TreeNode* searchBST(TreeNode* root, int val) {
-        while( root != nullptr && root->val != val){
-            if(val < root->val){
-                root = root->left;
-            }else{
-                root = root->right;
-            }
+        // Base cases: root is null (not found) or root's value matches val
+        if (root == nullptr || root->val == val) {
+            return root;
         }
-        return root;
+        
+        // If the target value is smaller, search the left subtree
+        if (val < root->val) {
+            return searchBST(root->left, val);
+        }
+        
+        // Otherwise, search the right subtree
+        return searchBST(root->right, val);
     }
 };
