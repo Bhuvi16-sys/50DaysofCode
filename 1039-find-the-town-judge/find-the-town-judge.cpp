@@ -1,23 +1,17 @@
 class Solution {
 public:
     int findJudge(int n, vector<vector<int>>& trust) {
-        if(n==1 && trust.empty()) return 1;
-        vector<int> trustedbyCount(n+1, 0);
-        for(const auto& relation : trust){
-            int row = relation[0];
-            int col = relation[1];
-            trustedbyCount[row] = -1;
+        vector<int> score(n + 1, 0);
         
-        if(trustedbyCount[col] != -1){
-            trustedbyCount[col]++;
+        for (auto& t : trust) {
+            score[t[0]]--; // truster loses a point
+            score[t[1]]++; // trustee gains a point
         }
+        
+        for (int i = 1; i <= n; ++i) {
+            if (score[i] == n - 1) return i;
         }
-        for(int i =1; i<=n;i++){
-            if(trustedbyCount[i]==n - 1){
-                return i;
-            }
-        }
+        
         return -1;
-
     }
 };
